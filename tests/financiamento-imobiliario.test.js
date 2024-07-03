@@ -1,3 +1,5 @@
+const FinanciamentoImobiliario = require("../src/financiamento-imobiliario");
+
 describe("FinanciamentoImobiliario class", () => {
   let financiamentoImobiliario;
 
@@ -22,7 +24,7 @@ describe("FinanciamentoImobiliario class", () => {
       it("get a CPF number from an input", () => {
         const cpfNumber = financiamentoImobiliario.getCPF();
 
-        expect(cpfNumber).toHaveLength();
+        expect(cpfNumber).toHaveLength(14);
       });
 
       it("get a valid CPF number", () => {
@@ -89,9 +91,10 @@ describe("FinanciamentoImobiliario class", () => {
       it("get an invalid CPF number", () => {
         const cpfNumber = financiamentoImobiliario.getCPF();
 
-        financiamentoImobiliario.validateCPF(cpfNumber);
+        const validatedCPFNumber = () =>
+          financiamentoImobiliario.validateCPF(cpfNumber);
 
-        expect(cpfNumber).toThrow("CPF invalid");
+        expect(validatedCPFNumber).toThrow("CPF invalid");
       });
     });
 
@@ -102,9 +105,12 @@ describe("FinanciamentoImobiliario class", () => {
       it("get an invalid birth date", () => {
         const birthDate = financiamentoImobiliario.getBirthDate();
 
-        financiamentoImobiliario.validateBirthDate(birthDate);
+        const validatedBirthDate = () =>
+          financiamentoImobiliario.validateBirthDate(birthDate);
 
-        expect(birthDate).toBeFalsy();
+        expect(validatedBirthDate).toThrow(
+          "Age invalid, you must be between 18 and 90"
+        );
       });
     });
   });
