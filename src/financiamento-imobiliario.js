@@ -49,6 +49,60 @@ class FinanciamentoImobiliario {
 
     throw new Error("Age invalid, you must be between 18 and 90");
   }
+
+  calculateParcela(initialValue, type) {
+    const parcelasNumber = 360;
+    const poupancaTax = 0.11;
+    const ipcaTax = 0.05;
+    const fixoTax = 0.08;
+
+    switch (type) {
+      case "poupanca":
+        const parcelaPoupanca =
+          (poupancaTax / (1 - Math.pow(1 + poupancaTax, -parcelasNumber))) *
+          initialValue;
+
+        return Math.round(parcelaPoupanca);
+      case "ipca":
+        const parcelaIpca =
+          (ipcaTax / (1 - Math.pow(1 + ipcaTax, -parcelasNumber))) *
+          initialValue;
+
+        return Math.round(parcelaIpca);
+      case "fixo":
+        const parcelaFixo =
+          (fixoTax / (1 - Math.pow(1 + fixoTax, -parcelasNumber))) *
+          initialValue;
+
+        return Math.round(parcelaFixo);
+      default:
+        return 0;
+    }
+  }
+
+  calculateFinalValue(initialValue, type) {
+    const parcelasNumber = 360;
+
+    switch (type) {
+      case "poupanca":
+        const finalValuePoupanca =
+          this.calculateParcela(initialValue, "poupanca") * parcelasNumber;
+
+        return Math.round(finalValuePoupanca);
+      case "ipca":
+        const finalValueIpca =
+          this.calculateParcela(initialValue, "ipca") * parcelasNumber;
+
+        return Math.round(finalValueIpca);
+      case "fixo":
+        const finalValueFixo =
+          this.calculateParcela(initialValue, "fixo") * parcelasNumber;
+
+        return Math.round(finalValueFixo);
+      default:
+        return 0;
+    }
+  }
 }
 
 module.exports = FinanciamentoImobiliario;
