@@ -1,4 +1,4 @@
-const FinanciamentoImobiliario = require("../src/financiamento-imobiliario");
+const FinanciamentoImobiliario = require("../src/entities/financiamento-imobiliario");
 
 describe("FinanciamentoImobiliario class", () => {
   let financiamentoImobiliario;
